@@ -1,0 +1,10 @@
+# base image is debian with python 3.10 (slim version)
+FROM python:3.10-slim-bullseye
+
+# pip install the endpoint library
+RUN pip install globus-compute-endpoint
+
+# configure the endpoint
+RUN globus-compute-endpoint configure example_endpoint
+
+ENTRYPOINT [ "/bin/bash" ]

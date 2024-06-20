@@ -1,0 +1,2 @@
+globus-compute-sdk
+ipykernel
