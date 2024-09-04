@@ -11,7 +11,7 @@ engine:
     type: SlurmProvider
     partition: parallel
 
-    account: neminiz1
+    account: rfadmin 
     launcher:
       type: SrunLauncher
 
