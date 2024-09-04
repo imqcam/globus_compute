@@ -1,0 +1,31 @@
+display_name: imqcam_endpoint
+engine:
+  type: GlobusComputeEngine
+  max_workers_per_node: 24
+
+  address:
+    type: address_by_interface
+    ifname: bond0
+
+  provider:
+    type: SlurmProvider
+    partition: parallel
+
+    account: neminiz1
+    launcher:
+      type: SrunLauncher
+
+    # string to prepend to #SBATCH blocks in the submit
+    # script to the scheduler
+    # e.g., "#SBATCH --constraint=knl,quad,cache"
+    scheduler_options: '#SBATCH -q normal'
+
+    # Command to be run before starting a worker
+    # e.g., "module load anaconda; source activate gce_env
+    worker_init: "source /home/neminiz1/miniconda3/etc/profile.d/conda.sh; conda activate globus_compute"
+
+    init_blocks: 1
+    max_blocks: 1
+    min_blocks: 0
+
+    walltime: 00:05:00
