@@ -37,3 +37,15 @@ Pip install the globus compute SDK and other dependencies for running the exampl
     pip install -r requirements.txt
 
 You should be able to run the examples in the notebook once you've copied the Endpoint ID from the Docker container's terminal window into the second cell as the "`example_endpoint_id`" variable value.
+
+# Compute endpoint on Rockfish
+
+You can set up the single-user compute endpoint running on Rockfish in a similar way to running it in a Docker container, but with a couple extra steps. First, assuming that you have a Globus Service Account set up to run the endpoint and authenticate to it remotely, set the `GLOBUS_COMPUTE_CLIENT_ID` and `GLOBUS_COMPUTE_CLIENT_SECRET` environment variables on your Rockfish login node. Then clone this repository, create and activate a new conda environment, and install the dependencies from the requirements file as described above. Then initialize an endpoint with:
+
+    globus-compute-endpoint configure endpoint_name
+
+Take note of the configuration file location that running that command prints out, and copy the contents of the [rockfish_config.yaml](./rockfish_config.yaml) file in this repository into that configuration file. The configurations in that file show an example of how to set up the endpoint to submit any tasks to the slurm queue on Rockfish. Then you can start the endpoint with:
+
+    globus-compute-endpoint start endpoint_name
+
+and submit jobs to it remotely as you would expect with its endpoint ID. You will need to set the `GLOBUS_COMPUTE_CLIENT_ID` and `GLOBUS_COMPUTE_CLIENT_SECRET` environment variables on the remote systems that will submit jobs to the endpoint, and also set them on Rockfish whenever you go to start the endpoint again.
