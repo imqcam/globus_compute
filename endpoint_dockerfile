@@ -1,6 +1,12 @@
 # base image is debian with python 3.10 (slim version)
 FROM python:3.10-slim-bullseye
 
+# Install gcc and other necessary build dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    build-essential \
+    && apt-get clean
+
 # pip install the endpoint library
 RUN pip install globus-compute-endpoint
 
